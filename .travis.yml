@@ -2,17 +2,16 @@ sudo: false
 language: ruby
 cache: bundler
 rvm:
-  - jruby-9.1.9.0
-  - jruby-head
-  - jruby-9.1.13.0
+  - jruby
+  - 2.3.1
   - rubinius-3.84
   - rbx
   - rbx-2
+  - rbx-3
   - rubinius
   - rubinius-2
   - rubinius-3
 before_install:
-  - gem update --system
   - gem update bundler
   - gem cleanup bundler
 install: "bundle install --jobs 8"
