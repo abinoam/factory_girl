@@ -1,11 +1,16 @@
+sudo: false
+language: ruby
+cache: bundler
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.9
-  - 2.2.5
-  - 2.3.1
-  - ruby-head
+  - jruby-9.1.9.0
+  - jruby-head
+  - jruby-9.1.13.0
+  - rubinius-3.84
+  - rbx
   - rbx-2
+  - rubinius
+  - rubinius-2
+  - rubinius-3
 before_install:
   - gem update --system
   - gem update bundler
@@ -13,37 +18,9 @@ before_install:
 install: "bundle install --jobs 8"
 script: "bundle exec rake"
 gemfile:
-  - gemfiles/3.2.gemfile
-  - gemfiles/4.0.gemfile
-  - gemfiles/4.1.gemfile
-  - gemfiles/4.2.gemfile
-  - gemfiles/5.0.gemfile
   - gemfiles/5.1.gemfile
 matrix:
   fast_finish: true
-  exclude:
-    - rvm: 1.9.3
-      gemfile: gemfiles/5.0.gemfile
-    - rvm: 2.0.0
-      gemfile: gemfiles/5.0.gemfile
-    - rvm: 2.1.9
-      gemfile: gemfiles/5.0.gemfile
-    - rvm: 1.9.3
-      gemfile: gemfiles/5.1.gemfile
-    - rvm: 2.0.0
-      gemfile: gemfiles/5.1.gemfile
-    - rvm: 2.1.9
-      gemfile: gemfiles/5.1.gemfile
-  include:
-    - rvm: jruby
-      gemfile: gemfiles/5.1.gemfile
-  allow_failures:
-    - rvm: ruby-head
-    - rvm: rbx-2
-    - rvm: jruby
 branches:
   only:
     - master
-
-sudo: false
-cache: bundler
