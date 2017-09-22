@@ -2,7 +2,7 @@ sudo: false
 language: ruby
 cache: bundler
 rvm:
-  - rbx-3
+  - rbx-head
 before_install:
   - gem update --system
   - gem update bundler
