@@ -2,22 +2,46 @@ sudo: false
 language: ruby
 cache: bundler
 rvm:
-  - 2.3.3
-  - jruby
+  - 2.3.2 # Not known to RVM 1.29.1
+  - 2.3.3 # Known to RVM 1.29.1
+  - 2.3.4 # Preinstalled on travis
   - jruby-head
-  - rbx
-  - rbx-2
-  - rbx-3
-  - rbx-head
-  - rubinius
-  - rubinius-2
-  - rubinius-3
-  - rubinius-head
+  - jruby-9.1.9.0 # Travis trusty binaries
+  - jruby-9.1.13.0 # JRuby binaries
+  - jruby-9.1.7.0 # known to RVM 1.29.2
+install: "bundle install --jobs=${JOBS_NUMBER} --retry=3 --deployment --path=${BUNDLE_PATH:-vendor/bundle}"
 script: "bundle exec rake"
 gemfile:
   - gemfiles/5.1.gemfile
+env:
+  global:
+    - JOBS_NUMBER=8
 matrix:
   fast_finish: true
+  include:
+    - rvm: rbx-2
+    - gemfile: gemfiles/5.1.gemfile
+    - JOBS_NUMBER=1
+  include:
+    - rvm: rbx-3
+    - gemfile: gemfiles/5.1.gemfile
+    - JOBS_NUMBER=1
+  include:
+    - rvm: rubinius-3.84 # Rubininus binary
+    - gemfile: gemfiles/5.1.gemfile
+    - JOBS_NUMBER=1
+  include:
+    - rvm: rbx-3.84 # Trying an alias to rubinius binary
+    - gemfile: gemfiles/5.1.gemfile
+    - JOBS_NUMBER=1
+  include:
+    - rvm: rbx-3.71 # known to RVM 1.29.2
+    - gemfile: gemfiles/5.1.gemfile
+    - JOBS_NUMBER=1
+  include:
+    - rvm: rbx-head
+    - gemfile: gemfiles/5.1.gemfile
+    - JOBS_NUMBER=1
 branches:
   only:
     - master
