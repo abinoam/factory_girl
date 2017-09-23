@@ -2,11 +2,17 @@ sudo: false
 language: ruby
 cache: bundler
 rvm:
+  - 2.3.3
+  - jruby
+  - jruby-head
+  - rbx
+  - rbx-2
+  - rbx-3
   - rbx-head
-before_install:
-  - gem update --system
-  - gem update bundler
-  - gem cleanup bundler
+  - rubinius
+  - rubinius-2
+  - rubinius-3
+  - rubinius-head
 script: "bundle exec rake"
 gemfile:
   - gemfiles/5.1.gemfile
