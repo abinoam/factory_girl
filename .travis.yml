@@ -9,7 +9,9 @@ rvm:
   - jruby-9.1.9.0 # Travis trusty binaries
   - jruby-9.1.13.0 # JRuby binaries
   - jruby-9.1.7.0 # known to RVM 1.29.2
-install: "bundle install --jobs=${JOBS_NUMBER} --retry=3 --deployment --path=${BUNDLE_PATH:-vendor/bundle}"
+install:
+  - "echo ${JOBS_NUMBER}"
+  - "bundle install --jobs=${JOBS_NUMBER} --retry=3 --deployment --path=${BUNDLE_PATH:-vendor/bundle}"
 script: "bundle exec rake"
 gemfile:
   - gemfiles/5.1.gemfile
@@ -20,28 +22,23 @@ matrix:
   fast_finish: true
   include:
     - rvm: rbx-2
-    - gemfile: gemfiles/5.1.gemfile
-    - JOBS_NUMBER=1
-  include:
+      gemfile: gemfiles/5.1.gemfile
+      env: JOBS_NUMBER=1
     - rvm: rbx-3
-    - gemfile: gemfiles/5.1.gemfile
-    - JOBS_NUMBER=1
-  include:
+      gemfile: gemfiles/5.1.gemfile
+      env: JOBS_NUMBER=1
     - rvm: rubinius-3.84 # Rubininus binary
-    - gemfile: gemfiles/5.1.gemfile
-    - JOBS_NUMBER=1
-  include:
+      gemfile: gemfiles/5.1.gemfile
+      env: JOBS_NUMBER=1
     - rvm: rbx-3.84 # Trying an alias to rubinius binary
-    - gemfile: gemfiles/5.1.gemfile
-    - JOBS_NUMBER=1
-  include:
+      gemfile: gemfiles/5.1.gemfile
+      env: JOBS_NUMBER=1
     - rvm: rbx-3.71 # known to RVM 1.29.2
-    - gemfile: gemfiles/5.1.gemfile
-    - JOBS_NUMBER=1
-  include:
+      gemfile: gemfiles/5.1.gemfile
+      env: JOBS_NUMBER=1
     - rvm: rbx-head
-    - gemfile: gemfiles/5.1.gemfile
-    - JOBS_NUMBER=1
+      gemfile: gemfiles/5.1.gemfile
+      env: JOBS_NUMBER=1
 branches:
   only:
     - master
